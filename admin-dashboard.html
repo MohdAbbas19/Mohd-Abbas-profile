@@ -84,8 +84,11 @@
 
     h2 {
       margin-bottom: 1rem;
-      color: #343a40;
+     color: #fff;
       text-align: center;
+    }
+    #blogstatus, #projectstatus{
+      color: #fff;
     }
 
     .card {
@@ -100,7 +103,7 @@
     .card h3 {
       margin-bottom: 1rem;
       font-size: 1.2rem;
-      color: #495057;
+       color: #fff;;
     }
 
     table {
@@ -383,7 +386,7 @@ fetch('https://script.google.com/macros/s/AKfycbx8uBIK07WnxZvRT8Z7YBVZ68YgDkeuin
   const formData = new FormData(form);
   const status = document.getElementById("blogstatus");
 
-  fetch("https://script.google.com/macros/s/AKfycbyZG2ev2qx8i0-Nr0t2ISU9dvCB8r2Vn7bzmaBjwo-bD6n3gT8sxamb7bJnMJ-EEOgPrg/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbykOEamxI_X6Siz0Jos9XXYU8J4j08VIKhbYTPsueELfFODDDgOSIabCaxPqHKMFMkRnA/exec", {
     method: "POST",
     body: formData
   })
@@ -495,3 +498,4 @@ function formatTimestamp(ts) {
   </script>
 </body>
 </html>
+
