@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url("hero.avif") no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  max-width: 90%; /* ✅ Allow it to shrink on small screens */
+  margin: 0 auto; /* ✅ Center horizontally */
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+.form-group button:hover {
+  background-color: #0858ae88;
+}
+
+/* ✅ Responsive for tablets */
+@media (max-width: 768px) {
+  .login-container {
+    width: 80%;
+    padding: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group button {
+    font-size: 0.95rem;
+  }
+}
+
+/* ✅ Responsive for phones */
+@media (max-width: 480px) {
+  .login-container {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .login-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input,
+  .form-group button {
+    font-size: 0.9rem;
+    padding: 0.2rem;
+    
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm">
+      <div class="form-group">
+    
+        <input type="text" id="username" name="username" required placeholder="Username"/>
+      </div>
+      <div class="form-group">
+    
+        <input type="password" id="password" name="password" required placeholder="Password" />
+      </div>
+      <div class="form-group">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Replace these values with your secure login check
+      if (username === 'umohdabb' && password === 'Naruto@4545') {
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        alert('Invalid login credentials');
+      }
+    });
+  </script>
+</body>
+
+</html>

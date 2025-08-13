@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url("hero.avif") no-repeat center center/cover;
+      color: #333;
+    }
+
+    nav {
+      background-color: #343a40;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  transition: max-height 0.3s ease-in-out;
+
+}
+.menu-toggle {
+    display: none;
+  }
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    background-color: #343a40;
+    position: absolute;
+    top: 60px;
+    right: 1;
+    width: 150px;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  nav ul.active {
+    max-height: 500px;
+    padding: 1rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+
+    .admin-panel {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #343a40;
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: #495057;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: #fff;
+    }
+
+    table th, table td {
+      padding: 0.75rem;
+      border: 1px solid #dee2e6;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #e9ecef;
+    }
+
+    .table-container {
+      overflow-y: auto;
+    }
+    
+    #table-wrapper {
+  overflow-y: auto;
+  max-height: 400px; /* Adjust height as needed */
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+
+    @media (max-width: 991px) {
+      .table-container {
+        overflow-x: auto;
+        overflow-y: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Admin Panel</h1>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <ul>
+      <li><a href="#blogs">Blog</a></li>
+      <li><a href="#feedback">User Messages</a></li>
+      <li><a href="#messages">User Feedback</a></li>
+      <li><a href="#payments">Payments</a></li>
+    </ul>
+  </nav>
+
+  <div class="admin-panel">
+    <h2>Dashboard</h2>
+
+    <div class="card" id="addBlog">
+      <h3><i class="fas fa-plus-circle"></i> Add Blog</h3>
+      <form id="blogForm">
+  <input type="text" name="title" placeholder="Blog Title" required style="width: 80%; padding: 0.5rem; margin-bottom: 0.5rem;">
+  <textarea name="content" placeholder="Blog Content" rows="5" required style="width: 80%; padding: 0.5rem;"></textarea>
+  <br><button type="submit" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background-color: #0d6efd; color: white; border: none; border-radius: 5px;">Submit</button>
+  </form><br>
+  <div id="blogstatus"></div>
+    </div>
+
+    <div class="card" id="addProject">
+  <h3><i class="fas fa-plus-circle"></i> Add Project</h3>
+  <form id="projectForm">
+    <input type="text" name="title" placeholder="Project Title" required style="width: 80%; padding: 0.5rem; margin-bottom: 0.5rem;"><br>
+    <input type="url" name="url" placeholder="Project URL" required style="width: 80%; padding: 0.5rem; margin-bottom: 0.5rem;"><br>
+    <textarea name="content" placeholder="Project Content" rows="5" required style="width: 80%; padding: 0.5rem;margin-bottom: 0.5rem"></textarea>
+    <br><button type="submit" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background-color: #0d6efd; color: white; border: none; border-radius: 5px;">Submit</button>
+  </form><br>
+  <div id="projectstatus"></div>
+</div>
+
+
+<div class="card" id="projects">
+  <h3><i class="fas fa-tasks"></i> Projects</h3>
+  <div class="table-container" id="projects-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>URL</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="projectsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+
+    
+    <div class="card" id="blogs">
+  <h3><i class="fas fa-blog"></i> Blog Data</h3>
+  <div class="table-container" id="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="blogsContainer">
+        <!-- Blog rows will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+    <div class="card" id="feedback">
+      <h3><i class="fas fa-envelope"></i> User Messages </h3>
+      <div class="table-container" id="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="messages2TableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" id="messages">
+      <h3><i class="fas fa-comment-dots"></i> User Feedback</h3>
+      <div class="table-container" id="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Feedback</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="messagesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" id="payments">
+      <h3><i class="fas fa-credit-card"></i> Payment Data</h3>
+      <div class="table-container" id="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>UPI ID</th>
+              <th>Total Price</th>
+              <th>Cart Summary</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsContainer"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // Toggle mobile menu
+document.getElementById('menu-toggle').addEventListener('click', function () {
+  const navLinks = document.querySelector('nav ul');
+  navLinks.classList.toggle('active');
+});
+
+    fetch('https://script.google.com/macros/s/AKfycbxjnVERvhkpFSvbzjqGnspoafCxdy-HVHuxUcgjTGBOb6Q5k3QrgMiIgNeF_GAeUSgS/exec')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('paymentsContainer');
+    if (!data || data.length === 0) {
+      container.innerHTML = `<tr><td colspan="7">No payment records found.</td></tr>`;
+      return;
+    }
+
+    container.innerHTML = data.map((payment, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${formatTimestamp(payment.timestamp)}</td>
+        <td>${payment.name || '—'}</td>
+        <td>${payment.email || '—'}</td>
+        <td>${payment.upi_id || '—'}</td>
+        <td>${payment.total_price || '—'}</td>
+        <td>${payment.cart_summary || '—'}</td>
+      </tr>
+    `).join('');
+  })
+  .catch(error => {
+    console.error('Error fetching payment data:', error);
+    document.getElementById('paymentsContainer').innerHTML = `
+      <tr><td colspan="7">Failed to load payment data.</td></tr>
+    `;
+  });
+
+
+    // Common function to format timestamps
+function formatTimestamp(ts) {
+  if (!ts) return '—';
+  const date = new Date(ts);
+  return date.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  });
+}
+
+// First messages table
+fetch('https://script.google.com/macros/s/AKfycbzEzu3jzSBH3JUpcoCujb9WyLsMFe6_eEdj5-zzj-vcZCTLrxJPCAg2HVWu2IfV9Uuh/exec')
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById('messagesTableBody');
+    if (!data || data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5">No messages found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map((msg, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${msg.name || '—'}</td>
+        <td>${msg.email || '—'}</td>
+        <td>${msg.message || '—'}</td>
+        <td>${formatTimestamp(msg.timestamp)}</td>
+      </tr>
+    `).join('');
+  })
+  .catch(err => {
+    document.getElementById('messagesTableBody').innerHTML = `<tr><td colspan="5">Failed to load messages.</td></tr>`;
+    console.error('Error loading messages:', err);
+  });
+
+// Second messages table
+fetch('https://script.google.com/macros/s/AKfycbx8uBIK07WnxZvRT8Z7YBVZ68YgDkeuinIJj4lTP2oKsNgdPXrwa9WdARI-QbU32g7JHw/exec')
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById('messages2TableBody');
+    if (!data || data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5">No messages found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map((msg, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${msg.name1 || '—'}</td>
+        <td>${msg.email1 || '—'}</td>
+        <td>${msg.message1 || '—'}</td>
+        <td>${formatTimestamp(msg.timestamp1)}</td>
+      </tr>
+    `).join('');
+  })
+  .catch(err => {
+    document.getElementById('messages2TableBody').innerHTML = `<tr><td colspan="5">Failed to load messages.</td></tr>`;
+    console.error('Error loading messages:', err);
+  });
+
+     document.getElementById("blogForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const status = document.getElementById("blogstatus");
+
+  fetch("https://script.google.com/macros/s/AKfycbyZG2ev2qx8i0-Nr0t2ISU9dvCB8r2Vn7bzmaBjwo-bD6n3gT8sxamb7bJnMJ-EEOgPrg/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.result === "success") {
+      status.innerText = "Message sent successfully!";
+      form.reset();
+    } else {
+      throw new Error("Submission failed. Server returned error.");
+    }
+  })
+  .catch(error => {
+    status.innerText ="Error submitting form.";
+    console.error(error);
+  });
+});
+//get blog 
+
+fetch('https://script.google.com/macros/s/AKfycbyZG2ev2qx8i0-Nr0t2ISU9dvCB8r2Vn7bzmaBjwo-bD6n3gT8sxamb7bJnMJ-EEOgPrg/exec')
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById('blogsContainer');
+
+    if (!data || data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4">No blogs found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map((blog, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${blog.title || '—'}</td>
+        <td>${blog.content || '—'}</td>
+        <td>${formatTimestamp(blog.timestamp)}
+        </td>
+      </tr>
+    `).join('');
+  })
+  .catch(err => {
+    const tbody = document.getElementById('blogsContainer');
+    tbody.innerHTML = `<tr><td colspan="4">Failed to load blogs.</td></tr>`;
+    console.error('Error loading blogs:', err);
+  });
+
+  //project add
+document.getElementById("projectForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const status = document.getElementById("projectstatus");
+
+  fetch("https://script.google.com/macros/s/AKfycbxGdH_qnLv3iBUMyvzbVCU9LTmqp0_pPOCmTuFtCpgdqOQ-Am9siZxtzQ8ZF43h-u6I/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.result === "success") {
+      status.innerText = "Project added successfully!";
+      form.reset();
+    } else {
+      throw new Error("Submission failed. Server returned error.");
+    }
+  })
+  .catch(error => {
+    status.innerText = "Error submitting project.";
+    console.error(error);
+  });
+});
+
+fetch('https://script.google.com/macros/s/AKfycbxGdH_qnLv3iBUMyvzbVCU9LTmqp0_pPOCmTuFtCpgdqOQ-Am9siZxtzQ8ZF43h-u6I/exec') // Your work projects endpoint
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById('projectsTableBody');
+
+    if (!data || data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5">No projects found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = data.map((project, index) => `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${project.title || '—'}</td>
+        <td>${project.content || '—'}</td>
+        <td>
+          ${project.url ? `<a href="${project.url}" target="_blank">View</a>` : '—'}
+        </td>
+        <td>${formatTimestamp(project.timestamp)}</td>
+      </tr>
+    `).join('');
+  })
+  .catch(err => {
+    const tbody = document.getElementById('projectsTableBody');
+    tbody.innerHTML = `<tr><td colspan="5">Failed to load projects.</td></tr>`;
+    console.error('Error loading projects:', err);
+  });
+
+// Helper function to format timestamp
+function formatTimestamp(ts) {
+  const date = new Date(ts);
+  return isNaN(date.getTime()) ? ts : date.toLocaleString();
+}
+
+
+
+  </script>
+</body>
+</html>
