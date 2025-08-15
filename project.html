@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Projects</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+   background: url("hero.avif") no-repeat center center/cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .projects-container {
+  padding: 20px;
+}
+
+.projects {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.projects h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.project-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-5px);
+}
+
+.project-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.project-item h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.project-item p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .projects h2 {
+    font-size: 1.5rem;
+  }
+
+  .project-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .project-item p {
+    font-size: 0.9rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<h1>All Projects</h1>
+<div class="projects-container" id="projectsContainer">
+  <section class="projects" id="projects">
+    <div class="project-list">
+        <div class="project-item" style="animation-delay: 0.5s;">
+            <a href="https://github.com/MohdAbbas19/Fake_News_Detections">  <img src="fake news.png" alt="Project One"></a>
+            <h3>Fake News Detection Model</h3>
+            <p>Developed a basic Fake News detection model using Flask API and the Random Forest algorithm, achieving 89% accuracy. Employed Natural Language Processing (NLP) and vectorizer techniques for data preprocessing.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 1s;">
+            <a href="https://github.com/MohdAbbas19/Text-Analysis-Tool/tree/main/Data_extractiona_and_cleaning"> <img src="text.png" alt="Project Two"></a>
+            <h3>Text Analysis Tool</h3>
+            <p>The Text Analysis Web App, built with Flask, leverages Pandas for data manipulation, NLTK for natural language processing, and Textstat for computing text statistics. This tool efficiently handles data uploads, processing, and analysis, offering users valuable insights into their textual data.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 1.5s;">
+           <a href="https://github.com/MohdAbbas19/Stock_Analysis/blob/main/Stock_Analysis.ipynb"> <img src="Stock.png" alt="Project Three"></a>
+            <h3>Stock Market Analysis</h3>
+            <p>Conducted a detailed examination of stock market trends, utilizing Exponential Smoothing and ARIMA models to forecast future prices. The analysis included model performance evaluation and stationarity testing, offering key insights into market behavior and stability.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 1.5s;">
+            <a href="https://github.com/MohdAbbas19/Social-Media-Analysis/blob/main/SocialMediaDataAnalysis.ipynb"><img src="Social.png" alt="Project Three"></a>
+             <h3>Social Media Engagement Optimization Analysis</h3>
+             <p>This project enhances social media engagement by analyzing data from various platforms. It includes data extraction, cleaning, and analyzing metrics like likes, retweets, and sentiment. Insights from statistical analysis and visualizations are used to recommend optimal posting times, sentiments, and content strategies.</p>
+            </div>
+        <div class="project-item" style="animation-delay: 1.5s;">
+            <a href="https://github.com/MohdAbbas19/Hotel_Booking_Data_Analysis-_Project/blob/main/Hotel_Booking_Data_Analysis%20_Project.ipynb"><img src="hotel.png" alt="Project Three"></a>
+            <h3>Hotel Booking Analysis</h3>
+            <p>The Hotel Booking Analysis project employs Python and data analysis tools to explore booking data, revealing insights into booking trends, cancellation rates, and average daily rates. This aids stakeholders in decision-making and strategy optimization.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 2s;">
+            <img src="desh2.png" alt="Project One">
+            <h3>Amazon Global Sales Dashboard</h3>
+            <p>Developed using Power BI, this dashboard visualizes Amazon's global sales data from 2012 to 2015, highlighting key metrics, sales by segment and market, and profit analysis, aiding stakeholders in informed decision-making.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 2.5s;">
+            <img src="desh1.png" alt="Project One">
+            <h3>Amazon Sales Dashboard</h3>
+            <p>Developed using Power BI, this dashboard visualizes Amazon's sales data, highlighting key metrics such as order count, quantity, and profit. It provides insights into sales trends, category performance, and state-wise profits.</p>
+        </div>
+        <div class="project-item" style="animation-delay: 3s;">
+            <img src="desh3.png" alt="Project One">
+            <h3>Call Center Deshboard</h3>
+            <p>The Power BI Call Center Dashboard offers key metrics like churn rate, retention rate, and average revenue, along with visualizations of customer satisfaction, service usage, and churn demographics, aiding in customer behavior analysis and retention strategies.</p>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<script>
+ 
+</script>
+
+</body>
+</html>
